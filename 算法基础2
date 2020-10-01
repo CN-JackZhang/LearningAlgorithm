@@ -7,6 +7,7 @@
       列表每相邻两个的数，如果前面比后面大，则交换这两个数。
       一趟排序完成后，则无序区减少一个数，有序区增加一个数。
       代码关键点：趟，无序区范围，
+      时间复杂度：O(n^2)
 代码实现：
 #!/usr/bin/env python
 # _*_coding: utf-8 _*_
@@ -59,6 +60,7 @@ print(li)
   3.插入排序
     初始时手里(有序区)只有一张牌。
     每次(从无序区)摸一张牌，插入到手里已有牌的正确位置。
+    时间复杂度：O(n^2)
    代码实现：       
 #!/usr/bin/env python
 # _*_coding: utf-8 _*_
@@ -81,6 +83,55 @@ li = [3,2,4,1,5,7,9,6,8]
 print(li)
 insert_sort(li)
 print(li)    
+
+小结：冒泡排序，选择排序，插入排序，的时间复杂度都是O(n^2)，都是原地排序。
+     O(n^2)的效率怎么样？
+     
+   4.快速排序
+   快速排序思路：
+            1.取一个元素P(第一个元素)，使元素P归位，
+            2.列表被P分为两部分，左边都比P小，右边都比P大，
+            3.递归完成排序。
+   快速排序的效率： 
+            快速排序的时间复杂度：O(nlogn)
+   快速排序的问题：
+            最坏情况，随机化版本的快速排序，
+            递归,递归会消耗很多系统资源。
+   代码实现：
+#!/usr/bin/env python
+# _*_coding: utf-8 _*_
+# @Time : 2020/10/1 19:40
+# @Author : CN-JackZhang
+# @File: quick_sort.py
+
+# 快速算法
+
+def partition(li, left, right):
+    tmp = li[left]
+    while left < right:
+        while left < right and li[right] >= tmp:  # 从右面找比tmp小的数
+            right -= 1  # 往左走一步
+        li[left] = li[right]  # 把右边的值写到左边的空位上
+        print(li, "right")
+        while left < right and li[left] <= tmp:
+            left += 1
+        li[right] = li[left]    # 把左边的值写到右边空位上
+        print(li, "left")
+    li[left] = tmp  # 把tmp归位
+    return left
+
+def quick_sort(li, left, right):
+    if left < right:    # 至少两个元素
+        mid = partition(li, left, right)
+        quick_sort(li, left, mid-1)
+        quick_sort(li, mid+1, right)
+
+li = [5,7,4,6,3,1,2,9,8]
+print(li)
+quick_sort(li, 0, len(li)-1)
+print(li)
+
+   
        
        
        
