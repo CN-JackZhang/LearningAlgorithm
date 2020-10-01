@@ -57,6 +57,47 @@ print(li)
 select_sort(li)
 print(li)
   3.插入排序
+    初始时手里(有序区)只有一张牌。
+    每次(从无序区)摸一张牌，插入到手里已有牌的正确位置。
+   代码实现：       
+#!/usr/bin/env python
+# _*_coding: utf-8 _*_
+# @Time : 2020/10/1 18:56
+# @Author : CN-JackZhang
+# @File: insert_sort.py
+
+# 插入算法
+def insert_sort(li):
+    for i in range(1, len(li)):  # 表示摸到牌的下标
+        tmp = li[i]
+        j = i - 1  # j指的是手里牌的下标
+        while j >= 0 and li[j] > tmp:
+            li[j+1] = li[j]
+            j -= 1
+        li[j+1] = tmp
+        print(li)
+
+li = [3,2,4,1,5,7,9,6,8]
+insert_sort(li)
+print(li)    
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
        
 
   
