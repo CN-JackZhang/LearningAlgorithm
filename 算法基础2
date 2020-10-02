@@ -1,4 +1,5 @@
 常见算法排序：
+           基础三人组  初级三人组 中级三人组
             冒泡排序   快速排序   希尔排序
             选择排序   堆排序     计数排序
             插入排序   归并排序   基数排序
@@ -131,6 +132,141 @@ print(li)
 quick_sort(li, 0, len(li)-1)
 print(li)
 
+5.堆排序前传——树与二叉树
+            树是一种数据结构  如：目录结构
+            树是一种可以递归定义的数据结构
+            树是由n个节点组成的集合：
+                        若n=0，那这是一棵空树
+                        若n>0，那存在1个节点作为树的根节点，其他节点可以分为m个集合，每个集合本身又是一棵树。
+             一些概念：
+                        根节点，叶子节点
+                        根的深度(高度)
+                        树的度
+            二叉树：度不超过2的树(白话:每个节点往下最多分两个叉)，每个节点最多有两个孩子节点，左孩子节点，右孩子节点。            
+            完全二叉树:
+            完全二叉树：
+            二叉树的存储方式(表示方式)：
+                        链式存储方式：
+                        顺序存储方式：用列表来存
+            堆排序：一种特殊的完全二叉树结构
+                        大根堆：
+                        小根堆：
+                        
+                    堆的向下调整，假设：节点的左右子树都是堆，但自身不是堆，
+                    可以通过一次向下的调整来将其变换成一个堆。
+             堆排序过程：  (挨个出数)   算法，内存能省则省，时间能快则快。
+                        1.建立堆。    怎么样建立一个堆？要让下级先有序，农村包围城市。
+                        2.得到堆顶元素，为最大元素。
+                        3.去掉堆顶，将堆最后一个元素放到堆顶，此时可通过一次调整重新使堆有序。
+                        4.堆顶元素为第二大元素。
+                        5.重复步骤3，直到堆变空。
+             堆排序——内置模块
+                        ——heapq
+                        常用函数：       
+                                    heapify(x)     建一个小根堆
+                                    heappush(heap,item)
+                                    heappop(heap)   弹出一个最小元素
+#!/usr/bin/env python
+# _*_coding: utf-8 _*_
+# @Time : 2020/10/2 14:57
+# @Author : CN-JackZhang
+# @File: heap2.py
+
+# python内置模块
+
+import heapq
+import random
+
+li = list(range(100))
+random.shuffle(li)
+
+print(li)
+
+heapq.heapify(li)   # 建了一个小根堆
+n = len(li)
+for i in range(n):
+    print(heapq.heappop(li), end=",")
+
+             堆排序时间复杂度：O(nlogn)
+堆排序代码实现:
+#!/usr/bin/env python
+# _*_coding: utf-8 _*_
+# @Time : 2020/10/2 10:39
+# @Author : CN-JackZhang
+# @File: heap_sort.py
+
+import random
+# 堆排序
+
+def sift(li, low, high):    # 调整函数
+    """
+    :param li:列表
+    :param low: 堆的根节点位置
+    :param high: 堆的最后一个元素的位置
+    :return:
+    """
+    i = low     # 最开始指向根节点
+    j = 2 * i + 1   # j开始是左孩子
+    tmp = li[low]   # 把堆顶存起来
+    while j <= high:
+        if j + 1 <= high and li[j+1] > li[j]:   # 如果右孩子有且比较大
+            j = j + 1   # j指向右孩子
+        if li[j] > tmp:
+            li[i] = li[j]
+            i = j   # 往下看一层
+            j = 2 * i + 1
+        else:   # tmp更大，把tmp放到i的位置上
+            li[i] = tmp     # 把tmp放到某一级领导位置上
+            break
+    else:
+        li[i] = tmp     # 把tmp放到叶子节点上
+
+def heap_sort(li):
+    n = len(li)
+    for i in range((n-2) // 2, -1, -1):
+        # i表示建堆的时候调整的部分的根的下标
+        sift(li, i, n-1)
+    # 建堆完成了
+    for i in range(n-1, -1, -1):
+        # i指向当前堆的最后一个元素
+        li[0], li[i] = li[i], li[0]
+        sift(li, 0, i-1)    # i-1是新的high
+    print(li)
+
+li = [i for i in range(100)]
+random.shuffle(li)
+print(li)
+
+heap_sort(li)
+print(li)
+堆排序应用——topk问题
+            现在有n个数，设计算法得到前k大的数。(k<n)
+            解决思路:
+                        1.排序后切片 O(nlogn)
+                        2.排序基础三人组：O(mn) 
+
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
    
        
        
